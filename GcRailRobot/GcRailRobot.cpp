@@ -1,5 +1,6 @@
 #include "GcRailRobot.h"
 #include <QMessageBox>
+#include <QDebug>
 
 GcRailRobot::GcRailRobot(QWidget *parent)
     : QMainWindow(parent)
@@ -9,6 +10,11 @@ GcRailRobot::GcRailRobot(QWidget *parent)
 	init_conn();
 	//
 	init();
+
+	{//test
+// 		QByteArray data = creayeBytes(41, OperationEnum::Mode_operator);
+// 		recvData(data);
+	}
 }
 
 GcRailRobot::~GcRailRobot()
@@ -132,7 +138,9 @@ QByteArray GcRailRobot::creayeBytes(QVariant data, OperationEnum type)
 void GcRailRobot::recvData(QByteArray &data)
 {
 	ui.textEdit_recv->append(QString::fromLocal8Bit("recv data bytes: %1")
-		.arg(QString(data)));
+	.arg(QString(data.toHex())));
+	
+	qDebug() << " byte: " << data.toHex();
 }
 
 void GcRailRobot::debug_output(QString &text)
